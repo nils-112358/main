@@ -14,68 +14,77 @@
 
 ```
     body {
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: #2d1b4e;
         min-height: 100vh;
-        padding: 20px;
-        color: #333;
+        padding: 40px 20px;
+        color: #e8e8e8;
     }
 
     .container {
-        max-width: 1200px;
+        max-width: 1400px;
         margin: 0 auto;
     }
 
     header {
         text-align: center;
         color: white;
-        margin-bottom: 50px;
-        padding: 30px 0;
+        margin-bottom: 60px;
+        padding: 40px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     header h1 {
-        font-size: 3em;
-        margin-bottom: 10px;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        font-size: 2.5em;
+        margin-bottom: 12px;
+        font-weight: 300;
+        letter-spacing: 2px;
     }
 
     header p {
+        font-size: 1em;
+        opacity: 0.7;
+        font-weight: 300;
+    }
+
+    .loading {
+        text-align: center;
+        padding: 40px;
+        color: #b0b0b0;
         font-size: 1.2em;
-        opacity: 0.9;
     }
 
     .repositories {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-        gap: 25px;
+        grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+        gap: 20px;
         margin-top: 30px;
     }
 
     .repo-card {
-        background: white;
-        border-radius: 12px;
-        padding: 25px;
-        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        background: #3d2b5f;
+        border-radius: 4px;
+        padding: 24px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        transition: border-color 0.2s ease;
         position: relative;
     }
 
     .repo-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+        border-color: rgba(255, 255, 255, 0.2);
     }
 
     .repo-header {
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
-        margin-bottom: 15px;
+        margin-bottom: 12px;
     }
 
     .repo-title {
-        font-size: 1.4em;
-        font-weight: 600;
-        color: #0366d6;
+        font-size: 1.2em;
+        font-weight: 400;
+        color: #ffffff;
         text-decoration: none;
         display: inline-flex;
         align-items: center;
@@ -83,67 +92,89 @@
     }
 
     .repo-title:hover {
-        text-decoration: underline;
+        color: #b8a3d9;
+    }
+
+    .repo-description {
+        font-size: 0.9em;
+        color: #b0b0b0;
+        margin-top: 8px;
+        line-height: 1.5;
     }
 
     .language-badge {
         display: inline-flex;
         align-items: center;
         gap: 6px;
-        font-size: 0.85em;
-        color: #586069;
-        margin-top: 5px;
+        font-size: 0.8em;
+        color: #b0b0b0;
+        margin-top: 8px;
+        font-weight: 300;
     }
 
     .language-dot {
-        width: 12px;
-        height: 12px;
+        width: 10px;
+        height: 10px;
         border-radius: 50%;
     }
 
     .html { background-color: #e34c26; }
     .python { background-color: #3572A5; }
     .css { background-color: #563d7c; }
+    .javascript { background-color: #f1e05a; }
+    .typescript { background-color: #2b7489; }
+    .java { background-color: #b07219; }
+    .cpp { background-color: #f34b7d; }
+    .c { background-color: #555555; }
+    .go { background-color: #00ADD8; }
+    .rust { background-color: #dea584; }
+    .php { background-color: #4F5D95; }
+    .ruby { background-color: #701516; }
+    .swift { background-color: #ffac45; }
+    .kotlin { background-color: #F18E33; }
 
     .updated {
-        font-size: 0.85em;
-        color: #586069;
-        margin-top: 10px;
+        font-size: 0.8em;
+        color: #888;
+        margin-top: 12px;
+        font-weight: 300;
     }
 
     .dropdown {
         position: relative;
-        margin-top: 15px;
+        margin-top: 16px;
     }
 
     .dropdown-btn {
         width: 100%;
-        padding: 10px 15px;
-        background: #f6f8fa;
-        border: 1px solid #d1d5da;
-        border-radius: 6px;
+        padding: 10px 14px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 3px;
         cursor: pointer;
-        font-size: 0.95em;
-        color: #24292e;
+        font-size: 0.85em;
+        color: #e8e8e8;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        transition: background 0.2s;
+        transition: all 0.2s;
+        font-weight: 300;
     }
 
     .dropdown-btn:hover {
-        background: #e1e4e8;
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(255, 255, 255, 0.2);
     }
 
     .dropdown-content {
         display: none;
         position: absolute;
-        background: white;
+        background: #4a3470;
         width: 100%;
-        border: 1px solid #d1d5da;
-        border-radius: 6px;
-        margin-top: 5px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 3px;
+        margin-top: 4px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         z-index: 10;
         max-height: 200px;
         overflow-y: auto;
@@ -154,35 +185,46 @@
     }
 
     .dropdown-item {
-        padding: 10px 15px;
-        color: #0366d6;
+        padding: 10px 14px;
+        color: #e8e8e8;
         text-decoration: none;
         display: block;
         transition: background 0.2s;
+        font-size: 0.85em;
+        font-weight: 300;
     }
 
     .dropdown-item:hover {
-        background: #f6f8fa;
+        background: rgba(255, 255, 255, 0.08);
     }
 
     .star-badge {
-        background: #ffd700;
-        color: #333;
-        padding: 4px 8px;
-        border-radius: 12px;
-        font-size: 0.75em;
-        font-weight: 600;
+        background: rgba(255, 255, 255, 0.1);
+        color: #ffffff;
+        padding: 3px 8px;
+        border-radius: 3px;
+        font-size: 0.7em;
+        font-weight: 400;
         display: inline-flex;
         align-items: center;
         gap: 4px;
+        border: 1px solid rgba(255, 255, 255, 0.15);
     }
 
     .arrow {
-        transition: transform 0.3s;
+        transition: transform 0.2s;
+        font-size: 0.7em;
     }
 
     .arrow.rotate {
         transform: rotate(180deg);
+    }
+
+    .error-message {
+        text-align: center;
+        padding: 40px;
+        color: #ff6b6b;
+        font-size: 1.1em;
     }
 
     @media (max-width: 768px) {
@@ -191,7 +233,7 @@
         }
         
         header h1 {
-            font-size: 2em;
+            font-size: 1.8em;
         }
     }
 </style>
@@ -201,285 +243,144 @@
 <body>
     <div class="container">
         <header>
-            <h1>🚀 nils-112358</h1>
-            <p>...waiting for data</p>
+            <h1>NILS-112358</h1>
+            <p>GitHub Portfolio</p>
         </header>
 
 ```
-    <div class="repositories">
-        <!-- Medienscouts -->
-        <div class="repo-card">
-            <div class="repo-header">
-                <a href="https://github.com/nils-112358/Medienscouts" class="repo-title" target="_blank">
-                    📁 Medienscouts
-                </a>
-            </div>
-            <div class="language-badge">
-                <span class="language-dot html"></span>
-                HTML
-            </div>
-            <div class="updated">Updated 1 hour ago</div>
-            <div class="dropdown">
-                <button class="dropdown-btn" onclick="toggleDropdown(this)">
-                    Öffne HTML Dateien
-                    <span class="arrow">▼</span>
-                </button>
-                <div class="dropdown-content">
-                    <a href="https://nils-112358.github.io/Medienscouts/" class="dropdown-item" target="_blank">GitHub Pages</a>
-                    <a href="https://github.com/nils-112358/Medienscouts" class="dropdown-item" target="_blank">Repository ansehen</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- happy-birthday -->
-        <div class="repo-card">
-            <div class="repo-header">
-                <a href="https://github.com/nils-112358/happy-birthday-" class="repo-title" target="_blank">
-                    🎂 happy-birthday-
-                </a>
-            </div>
-            <div class="language-badge">
-                <span class="language-dot html"></span>
-                HTML
-            </div>
-            <div class="updated">Updated 3 hours ago</div>
-            <div class="dropdown">
-                <button class="dropdown-btn" onclick="toggleDropdown(this)">
-                    Öffne HTML Dateien
-                    <span class="arrow">▼</span>
-                </button>
-                <div class="dropdown-content">
-                    <a href="https://nils-112358.github.io/happy-birthday-/" class="dropdown-item" target="_blank">GitHub Pages</a>
-                    <a href="https://github.com/nils-112358/happy-birthday-" class="dropdown-item" target="_blank">Repository ansehen</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Schreenglitch-for-PiOS -->
-        <div class="repo-card">
-            <div class="repo-header">
-                <a href="https://github.com/nils-112358/Schreenglitch-for-PiOS" class="repo-title" target="_blank">
-                    🐍 Schreenglitch-for-PiOS
-                </a>
-            </div>
-            <div class="language-badge">
-                <span class="language-dot python"></span>
-                Python
-            </div>
-            <div class="updated">Updated yesterday</div>
-            <div class="dropdown">
-                <button class="dropdown-btn" onclick="toggleDropdown(this)">
-                    Repository Links
-                    <span class="arrow">▼</span>
-                </button>
-                <div class="dropdown-content">
-                    <a href="https://github.com/nils-112358/Schreenglitch-for-PiOS" class="dropdown-item" target="_blank">Repository ansehen</a>
-                    <a href="https://github.com/nils-112358/Schreenglitch-for-PiOS/archive/refs/heads/main.zip" class="dropdown-item" target="_blank">Download ZIP</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Unnamed CSS Repo -->
-        <div class="repo-card">
-            <div class="repo-header">
-                <a href="https://github.com/nils-112358/-" class="repo-title" target="_blank">
-                    📝 -
-                </a>
-            </div>
-            <div class="language-badge">
-                <span class="language-dot css"></span>
-                CSS
-            </div>
-            <div class="updated">Updated 3 days ago</div>
-            <div class="dropdown">
-                <button class="dropdown-btn" onclick="toggleDropdown(this)">
-                    Repository Links
-                    <span class="arrow">▼</span>
-                </button>
-                <div class="dropdown-content">
-                    <a href="https://github.com/nils-112358/-" class="dropdown-item" target="_blank">Repository ansehen</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Rechner -->
-        <div class="repo-card">
-            <div class="repo-header">
-                <a href="https://github.com/nils-112358/Rechner" class="repo-title" target="_blank">
-                    🧮 Rechner
-                </a>
-            </div>
-            <div class="language-badge">
-                <span class="language-dot html"></span>
-                HTML
-            </div>
-            <div class="updated">Updated 5 days ago</div>
-            <div class="dropdown">
-                <button class="dropdown-btn" onclick="toggleDropdown(this)">
-                    Öffne HTML Dateien
-                    <span class="arrow">▼</span>
-                </button>
-                <div class="dropdown-content">
-                    <a href="https://nils-112358.github.io/Rechner/" class="dropdown-item" target="_blank">GitHub Pages</a>
-                    <a href="https://github.com/nils-112358/Rechner" class="dropdown-item" target="_blank">Repository ansehen</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Rechner1 -->
-        <div class="repo-card">
-            <div class="repo-header">
-                <a href="https://github.com/nils-112358/Rechner1" class="repo-title" target="_blank">
-                    🧮 Rechner1
-                </a>
-            </div>
-            <div class="language-badge">
-                <span class="language-dot html"></span>
-                HTML
-            </div>
-            <div class="updated">Updated last week</div>
-            <div class="dropdown">
-                <button class="dropdown-btn" onclick="toggleDropdown(this)">
-                    Öffne HTML Dateien
-                    <span class="arrow">▼</span>
-                </button>
-                <div class="dropdown-content">
-                    <a href="https://nils-112358.github.io/Rechner1/" class="dropdown-item" target="_blank">GitHub Pages</a>
-                    <a href="https://github.com/nils-112358/Rechner1" class="dropdown-item" target="_blank">Repository ansehen</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Notenrechner -->
-        <div class="repo-card">
-            <div class="repo-header">
-                <a href="https://github.com/nils-112358/Notenrechner" class="repo-title" target="_blank">
-                    📊 Notenrechner
-                </a>
-            </div>
-            <div class="language-badge">
-                <span class="language-dot html"></span>
-                HTML
-            </div>
-            <div class="updated">Updated last week</div>
-            <div class="dropdown">
-                <button class="dropdown-btn" onclick="toggleDropdown(this)">
-                    Öffne HTML Dateien
-                    <span class="arrow">▼</span>
-                </button>
-                <div class="dropdown-content">
-                    <a href="https://nils-112358.github.io/Notenrechner/" class="dropdown-item" target="_blank">GitHub Pages</a>
-                    <a href="https://github.com/nils-112358/Notenrechner" class="dropdown-item" target="_blank">Repository ansehen</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- snake -->
-        <div class="repo-card">
-            <div class="repo-header">
-                <a href="https://github.com/nils-112358/snake" class="repo-title" target="_blank">
-                    🐍 snake
-                </a>
-            </div>
-            <div class="language-badge">
-                <span class="language-dot html"></span>
-                HTML
-            </div>
-            <div class="updated">Updated 3 weeks ago</div>
-            <div class="dropdown">
-                <button class="dropdown-btn" onclick="toggleDropdown(this)">
-                    Öffne HTML Dateien
-                    <span class="arrow">▼</span>
-                </button>
-                <div class="dropdown-content">
-                    <a href="https://nils-112358.github.io/snake/" class="dropdown-item" target="_blank">GitHub Pages</a>
-                    <a href="https://github.com/nils-112358/snake" class="dropdown-item" target="_blank">Repository ansehen</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Silvester -->
-        <div class="repo-card">
-            <div class="repo-header">
-                <a href="https://github.com/nils-112358/Silvester" class="repo-title" target="_blank">
-                    🎆 Silvester
-                </a>
-            </div>
-            <div class="language-badge">
-                <span class="language-dot css"></span>
-                CSS
-            </div>
-            <div class="updated">Updated on Dec 31, 2025</div>
-            <div class="dropdown">
-                <button class="dropdown-btn" onclick="toggleDropdown(this)">
-                    Öffne HTML Dateien
-                    <span class="arrow">▼</span>
-                </button>
-                <div class="dropdown-content">
-                    <a href="https://nils-112358.github.io/Silvester/" class="dropdown-item" target="_blank">GitHub Pages</a>
-                    <a href="https://github.com/nils-112358/Silvester" class="dropdown-item" target="_blank">Repository ansehen</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Christmas -->
-        <div class="repo-card">
-            <div class="repo-header">
-                <a href="https://github.com/nils-112358/Christmas" class="repo-title" target="_blank">
-                    🎄 Christmas
-                </a>
-                <span class="star-badge">⭐ 1</span>
-            </div>
-            <div class="language-badge">
-                <span class="language-dot html"></span>
-                HTML
-            </div>
-            <div class="updated">Updated on Dec 22, 2025</div>
-            <div class="dropdown">
-                <button class="dropdown-btn" onclick="toggleDropdown(this)">
-                    Öffne HTML Dateien
-                    <span class="arrow">▼</span>
-                </button>
-                <div class="dropdown-content">
-                    <a href="https://nils-112358.github.io/Christmas/" class="dropdown-item" target="_blank">GitHub Pages</a>
-                    <a href="https://github.com/nils-112358/Christmas" class="dropdown-item" target="_blank">Repository ansehen</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- cristmas -->
-        <div class="repo-card">
-            <div class="repo-header">
-                <a href="https://github.com/nils-112358/cristmas" class="repo-title" target="_blank">
-                    🎅 cristmas
-                </a>
-                <span class="star-badge">⭐ 1</span>
-            </div>
-            <div class="language-badge">
-                <span class="language-dot html"></span>
-                HTML
-            </div>
-            <div class="updated">Updated on Dec 21, 2025</div>
-            <div class="dropdown">
-                <button class="dropdown-btn" onclick="toggleDropdown(this)">
-                    Öffne HTML Dateien
-                    <span class="arrow">▼</span>
-                </button>
-                <div class="dropdown-content">
-                    <a href="https://nils-112358.github.io/cristmas/" class="dropdown-item" target="_blank">GitHub Pages</a>
-                    <a href="https://github.com/nils-112358/cristmas" class="dropdown-item" target="_blank">Repository ansehen</a>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div class="loading" id="loading">Lade Repositories...</div>
+    <div class="repositories" id="repositories"></div>
 </div>
 
 <script>
+    const username = 'nils-112358';
+    const repositoriesContainer = document.getElementById('repositories');
+    const loadingElement = document.getElementById('loading');
+
+    // Sprachen-Farben Mapping
+    const languageColors = {
+        'HTML': 'html',
+        'Python': 'python',
+        'CSS': 'css',
+        'JavaScript': 'javascript',
+        'TypeScript': 'typescript',
+        'Java': 'java',
+        'C++': 'cpp',
+        'C': 'c',
+        'Go': 'go',
+        'Rust': 'rust',
+        'PHP': 'php',
+        'Ruby': 'ruby',
+        'Swift': 'swift',
+        'Kotlin': 'kotlin'
+    };
+
+    // Funktion zum Formatieren des Update-Datums
+    function formatUpdateTime(dateString) {
+        const now = new Date();
+        const updated = new Date(dateString);
+        const diffMs = now - updated;
+        const diffMins = Math.floor(diffMs / 60000);
+        const diffHours = Math.floor(diffMs / 3600000);
+        const diffDays = Math.floor(diffMs / 86400000);
+        const diffWeeks = Math.floor(diffMs / 604800000);
+
+        if (diffMins < 60) {
+            return `Updated ${diffMins} ${diffMins === 1 ? 'minute' : 'minutes'} ago`;
+        } else if (diffHours < 24) {
+            return `Updated ${diffHours} ${diffHours === 1 ? 'hour' : 'hours'} ago`;
+        } else if (diffDays === 1) {
+            return 'Updated yesterday';
+        } else if (diffDays < 7) {
+            return `Updated ${diffDays} days ago`;
+        } else if (diffWeeks === 1) {
+            return 'Updated last week';
+        } else if (diffWeeks < 4) {
+            return `Updated ${diffWeeks} weeks ago`;
+        } else {
+            const options = { year: 'numeric', month: 'short', day: 'numeric' };
+            return `Updated on ${updated.toLocaleDateString('en-US', options)}`;
+        }
+    }
+
+    // Funktion zum Erstellen einer Repository-Karte
+    function createRepoCard(repo) {
+        const card = document.createElement('div');
+        card.className = 'repo-card';
+
+        const languageClass = languageColors[repo.language] || 'html';
+        const hasStars = repo.stargazers_count > 0;
+
+        // GitHub Pages URL erstellen (falls es ein HTML Projekt ist)
+        const hasPages = repo.has_pages || repo.language === 'HTML';
+        const pagesUrl = `https://${username}.github.io/${repo.name}/`;
+
+        card.innerHTML = `
+            <div class="repo-header">
+                <a href="${repo.html_url}" class="repo-title" target="_blank">
+                    ${repo.name}
+                </a>
+                ${hasStars ? `<span class="star-badge">★ ${repo.stargazers_count}</span>` : ''}
+            </div>
+            ${repo.description ? `<div class="repo-description">${repo.description}</div>` : ''}
+            ${repo.language ? `
+            <div class="language-badge">
+                <span class="language-dot ${languageClass}"></span>
+                ${repo.language}
+            </div>
+            ` : ''}
+            <div class="updated">${formatUpdateTime(repo.updated_at)}</div>
+            <div class="dropdown">
+                <button class="dropdown-btn" onclick="toggleDropdown(this)">
+                    ${repo.language === 'HTML' ? 'Öffne HTML Dateien' : 'Repository Links'}
+                    <span class="arrow">▼</span>
+                </button>
+                <div class="dropdown-content">
+                    ${repo.language === 'HTML' ? `<a href="${pagesUrl}" class="dropdown-item" target="_blank">GitHub Pages</a>` : ''}
+                    <a href="${repo.html_url}" class="dropdown-item" target="_blank">Repository ansehen</a>
+                    <a href="${repo.html_url}/archive/refs/heads/${repo.default_branch}.zip" class="dropdown-item" target="_blank">Download ZIP</a>
+                </div>
+            </div>
+        `;
+
+        return card;
+    }
+
+    // Repositories von GitHub API laden
+    async function loadRepositories() {
+        try {
+            const response = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=100`);
+            
+            if (!response.ok) {
+                throw new Error('Fehler beim Laden der Repositories');
+            }
+
+            const repos = await response.json();
+            
+            // Loading-Element ausblenden
+            loadingElement.style.display = 'none';
+
+            // Repositories sortieren (neueste zuerst)
+            repos.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
+
+            // Für jedes Repository eine Karte erstellen
+            repos.forEach(repo => {
+                const card = createRepoCard(repo);
+                repositoriesContainer.appendChild(card);
+            });
+
+        } catch (error) {
+            console.error('Error:', error);
+            loadingElement.innerHTML = `<div class="error-message">Fehler beim Laden der Repositories. Bitte später erneut versuchen.</div>`;
+        }
+    }
+
+    // Dropdown Toggle Funktion
     function toggleDropdown(button) {
         const dropdown = button.nextElementSibling;
         const arrow = button.querySelector('.arrow');
         
-        // Close all other dropdowns
+        // Alle anderen Dropdowns schließen
         document.querySelectorAll('.dropdown-content').forEach(d => {
             if (d !== dropdown) {
                 d.classList.remove('show');
@@ -491,12 +392,12 @@
             }
         });
         
-        // Toggle current dropdown
+        // Aktuelles Dropdown togglen
         dropdown.classList.toggle('show');
         arrow.classList.toggle('rotate');
     }
 
-    // Close dropdown when clicking outside
+    // Dropdown schließen beim Klicken außerhalb
     window.addEventListener('click', function(e) {
         if (!e.target.matches('.dropdown-btn') && !e.target.matches('.arrow')) {
             document.querySelectorAll('.dropdown-content').forEach(d => {
@@ -507,6 +408,9 @@
             });
         }
     });
+
+    // Repositories beim Laden der Seite abrufen
+    loadRepositories();
 </script>
 ```
 
