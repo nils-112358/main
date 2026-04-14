@@ -11,8 +11,9 @@
             --border-color: #222222;
             --text-main: #eeeeee;
             --text-muted: #888888;
-            --accent-color: #58a6ff;
-            --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+            --accent-color: #a855f7; 
+            --accent-glow: rgba(168, 85, 247, 0.1);
+            --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
         }
 
         body {
@@ -39,14 +40,17 @@
             text-decoration: none;
             margin-left: 20px;
             font-size: 0.9rem;
+            transition: color 0.2s;
         }
+
+        nav a:hover { color: var(--accent-color); }
 
         h1 { font-size: 2.2rem; margin-bottom: 20px; letter-spacing: -1px; }
         
         .intro p {
             color: var(--text-muted);
             line-height: 1.6;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             max-width: 600px;
         }
 
@@ -61,36 +65,38 @@
         .section-header h2 { font-size: 1.2rem; font-weight: normal; }
         .view-all { color: var(--text-muted); text-decoration: underline; font-size: 0.8rem; }
 
-        /* Repository Cards */
+        #repo-container { display: flex; flex-direction: column; gap: 15px; }
+
         .repo-card {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 8px;
             padding: 20px;
-            margin-bottom: 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             text-decoration: none;
             color: inherit;
-            transition: transform 0.1s, border-color 0.2s;
+            transition: all 0.2s ease-in-out;
         }
 
         .repo-card:hover {
-            border-color: #444;
-            transform: translateY(-2px);
+            border-color: var(--accent-color);
+            background: var(--accent-glow);
+            transform: translateX(5px);
         }
 
         .repo-info h3 { margin: 0 0 5px 0; font-size: 1rem; color: var(--accent-color); }
         .repo-info p { margin: 0; color: var(--text-muted); font-size: 0.85rem; }
 
         .repo-lang { display: flex; align-items: center; font-size: 0.85rem; color: var(--text-muted); }
-        .dot { width: 10px; height: 10px; border-radius: 50%; margin-right: 8px; background: #888; }
+        .dot { width: 10px; height: 10px; border-radius: 50%; margin-right: 8px; background: var(--accent-color); }
 
         .social-links { margin-top: 30px; font-size: 0.9rem; }
-        .social-links a { color: var(--text-main); text-decoration: none; margin-right: 15px; border-bottom: 1px solid #333; }
+        .social-links a { color: var(--text-main); text-decoration: none; margin-right: 15px; border-bottom: 1px solid var(--border-color); padding-bottom: 2px; }
+        .social-links a:hover { border-bottom-color: var(--accent-color); color: var(--accent-color); }
 
-        #loading { color: var(--text-muted); font-style: italic; }
+        #loading { color: var(--text-muted); font-style: italic; font-size: 0.9rem; }
     </style>
 </head>
 <body>
@@ -98,24 +104,24 @@
 <div class="container">
     <header>
         <div style="display: flex; align-items: center; gap: 10px;">
-            <div style="width: 24px; height: 24px; background: var(--accent-color); border-radius: 4px;"></div> 
+            <div style="width: 24px; height: 24px; background: var(--accent-color); border-radius: 4px; box-shadow: 0 0 12px var(--accent-glow);"></div> 
             <span><strong>cypherfrog</strong></span>
         </div>
         <nav>
-            <a href="#">Blog</a>
             <a href="#projects">Projects</a>
             <a href="#">About</a>
+            <a href="mailto:deine-mail@beispiel.de">Contact</a>
         </nav>
     </header>
 
     <section class="intro">
         <h1>cypherfrog</h1>
         <p>
-            Hey there, I'm cypherfrog! I'm a cloud engineer, developer, and security enthusiast. 
-            I love open source and exploring everything related to cyber security.
+            Hey, ich bin cypherfrog! Cloud Engineer, Developer und Security-Enthusiast. 
+            Ich brenne für Open Source, Information Gathering und System-Hardening.
         </p>
         <div class="social-links">
-            Find me on <a href="https://github.com/nils-112358" target="_blank">GitHub</a>, <a href="#">Discord</a> and <a href="#">X</a>.
+            Find me on <a href="https://github.com/nils-112358" target="_blank">GitHub</a>, <a href="#">Discord</a> and <a href="mailto:deine-mail@beispiel.de">Email</a>.
         </div>
     </section>
 
@@ -125,7 +131,7 @@
     </div>
 
     <div id="repo-container">
-        <p id="loading">Lade Repositories von GitHub...</p>
+        <p id="loading">Scanning GitHub for repositories...</p>
     </div>
 </div>
 
@@ -135,16 +141,16 @@
 
     async function fetchRepos() {
         try {
-            // Holt alle Repos des Users
             const response = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated`);
+            if (!response.ok) throw new Error();
             const repos = await response.json();
 
-            // Sortiert nach Stars (absteigend) und nimmt die Top 3
+            // Sortierung nach Stars
             const topRepos = repos
                 .sort((a, b) => b.stargazers_count - a.stargazers_count)
                 .slice(0, 3);
 
-            repoContainer.innerHTML = ''; // Loading Text entfernen
+            repoContainer.innerHTML = ''; 
 
             topRepos.forEach(repo => {
                 const card = document.createElement('a');
@@ -155,18 +161,17 @@
                 card.innerHTML = `
                     <div class="repo-info">
                         <h3>${repo.name}</h3>
-                        <p>${repo.description || 'No description available'}</p>
+                        <p>${repo.description || 'No description provided'}</p>
                     </div>
                     <div class="repo-lang">
                         <span class="dot"></span>
-                        ${repo.language || 'Plain Text'}
+                        ${repo.language || 'Code'}
                     </div>
                 `;
                 repoContainer.appendChild(card);
             });
         } catch (error) {
-            repoContainer.innerHTML = '<p style="color: red;">Fehler beim Laden der Projekte.</p>';
-            console.error(error);
+            repoContainer.innerHTML = '<p style="color: var(--accent-color);">Failed to load repositories.</p>';
         }
     }
 
